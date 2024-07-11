@@ -51,10 +51,16 @@ class NOT_FOUND extends ErrorResponse {
     }
 }
 
+class NO_CONTENT extends ErrorResponse {
+    constructor(message = ReasonPhrases.NO_CONTENT, statusCode = StatusCodes.NO_CONTENT) {
+        super(message, statusCode);
+    }
+}
 
 
 
 
 
 
-module.exports = { ForbiddenError, ConflictError, NotFoundError, BadRequestError, UnauthorizedError, InternalServerError, NOT_FOUND };
+
+module.exports = { ForbiddenError, ConflictError, NotFoundError, BadRequestError, UnauthorizedError, InternalServerError, NOT_FOUND, NO_CONTENT };
