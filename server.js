@@ -3,6 +3,8 @@
 const app = require("./src/index");
 const config = require("./src/config/config.mongodb");
 const PORT = config.app.port || 3080;
+const bcrypt = require('bcrypt');
+
 
 const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

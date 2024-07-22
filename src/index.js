@@ -6,7 +6,7 @@ const compression = require('compression');
 const router = require('./router/index.router');
 const { checkOverloadConnect } = require('./helpers/checkConnect');
 const app = express();
-
+const bcrypt = require('bcrypt');
 // Khởi tạo middleware
 app.use(morgan('dev')); // Ghi log các yêu cầu HTTP
 app.use(helmet()); // Bảo mật ứng dụng web
@@ -19,7 +19,10 @@ require('./dbs/init.mongodb');
 checkOverloadConnect();
 
 // Middleware tùy chỉnh
-
+app.get('/', async (req, res) => {
+    const hasPass = await bcrypt.hash('the new pass', 10);
+    res.send(hasPass)
+})
 // Xử lý các route
 app.use('/', router);
 

@@ -2,6 +2,7 @@
 
 const { OK, CREATEDS } = require("../core/success.response");
 const ProductFactory = require("../service/product.service");
+const { removeNesstedAttributesObject } = require("../utils");
 
 
 class ProductControler {
@@ -77,6 +78,76 @@ class ProductControler {
 
 
     }
+
+    searchAllProduct = async (req, res) => {
+        const keyword = req.params.qKeyWord;
+        // type shopId id 
+        return new OK(
+            {
+                message: 'search OK ',
+                data: await ProductFactory.searchAllProduct(keyword)
+            }
+        ).send(res)
+    }
+
+    /**
+     *
+     *
+     * @param {*} req
+     * @param {*} res
+     * @memberof ProductControler
+     */
+    findAllProduct = async (req, res) => {
+        const { page, sort } = req.params;
+        console.log({
+            message: 'Test',
+            page,
+            sort
+        });
+        // type shopId id 
+        return new OK(
+            {
+                message: 'findAllProduct OK ',
+                data: await ProductFactory.findAllProduct({ page, sort })
+            }
+        ).send(res)
+    }
+
+    /**
+     *
+     *
+     * @param {*} req
+     * @param {*} res
+     * @memberof ProductControler
+     */
+    findProduct = async (req, res) => {
+        const id = req.params.id;
+        console.log(id)
+        // type shopId id 
+        return new OK(
+            {
+                message: 'find Product Success !! ',
+                data: await ProductFactory.findProduct(id)
+            }
+        ).send(res)
+    }
+
+    updateProduct = async (req, res) => {
+        const productId = req.params.idProduct;
+        const payload = req.body;
+        const newPay = removeNesstedAttributesObject(payload);
+        return new OK(
+            {
+                message: 'Update Product Success !! ',
+                data: await ProductFactory.modifyProduct({
+                    payload: newPay,
+                    product_id: productId,
+                    type: payload.product_type
+                })
+            }
+        ).send(res)
+    }
+
 
 
 }

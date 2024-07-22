@@ -1,7 +1,8 @@
 'use strict'
 
 const { Types } = require("mongoose")
-const { product, clothing, electronic } = require("../product.model")
+const { product } = require("../product.model")
+const { selectDataV2, unSelectDataV2, unSelectData, removeNesstedAttributesObject, removeNestedAttributesObjectV3 } = require("../../utils")
 
 /** 
  * @type {*}
@@ -9,8 +10,25 @@ const { product, clothing, electronic } = require("../product.model")
  *  */
 
 
+// Search  
+const searchProduct = async (keyword) => {
+    console.log(keyword)
+    const regexSearch = new RegExp(keyword); // tìm kiếm linh hoạt hơn convernt sang biểu thức chính quy 
+    const resuft = product.find({
+        isPublish: true,
+        $text: { $search: regexSearch }
+    }, { score: { $meta: 'textScore' } }).sort({ score: { $meta: 'textScore' } }).lean().exec();
+    return resuft;
+}
+
 
 // Patch 
+/**
+ *
+ *
+ * @param {*} { product_shop, product_id }
+ * @return {*} 
+ */
 const onPublicProductForShop = async ({ product_shop, product_id }) => {
     const foundShop = await product.findOne({
         product_shop: new Types.ObjectId(product_shop),
@@ -46,18 +64,53 @@ const onDraftProductForShop = async ({ product_shop, product_id }) => {
 
 // Query
 
+/**
+ *
+ *
+ * @param {*} { query, limit, skip }
+ * @return {*} 
+ */
 const findAllDrafsForShop = async ({ query, limit, skip }) => {
     return findAllProductForShop(query, limit, skip)
 }
 
+/**
+ *
+ *
+ * @param {*} { query, limit, skip }
+ * @return {*} 
+ */
 const findAllPublicForShop = async ({ query, limit, skip }) => {
     return findAllProductForShop(query, limit, skip)
 }
+/**
+ *
+ *
+ * @param {*} { query, sort, limit, skip, select }
+ * @return {*} 
+ */
+const findAllProducts = async ({ query, sort, limit, skip, select }) => {
+    const querySort = sort == 'ctime' ? { createdAt: -1 } : { createdAt: 1 }
+    return product.find(query)
+        .sort(querySort)
+        .skip(skip)
+        .limit(limit)
+        .select(selectDataV2(select))
+        .lean()
+        .exec()
+}
+
+const findProduct = async ({ product_id, unSelect }) => {
+    console.log(unSelect)
+    return await product.findById(product_id).select(unSelectDataV2(unSelect)).lean()
+}
 
 
+const modifyProduct = async ({ productId, payload, model }) => {
+    return await model.findByIdAndUpdate(productId, payload, { new: true });
+}
 
-
-
+// Optimize fNC 
 async function findAllProductForShop(query, limit, skip) {
     return await product.find(query)
         .populate('product_shop', 'name email -_id')
@@ -68,7 +121,12 @@ async function findAllProductForShop(query, limit, skip) {
         .exec()
 }
 
-module.exports = { findAllPublicForShop, findAllDrafsForShop, onPublicProductForShop, onDraftProductForShop }
+
+
+
+
+
+module.exports = { findAllPublicForShop, findAllDrafsForShop, onPublicProductForShop, onDraftProductForShop, searchProduct, findAllProducts, findProduct, modifyProduct }
 
 
 

@@ -1,10 +1,12 @@
 'use strict'
 
-const { Types } = require("mongoose");
+const { Types, model } = require("mongoose");
 const { BadRequestError, NOT_FOUND } = require("../core/error.response");
 const { product, electronic, clothing, furntiture } = require("../model/product.model");
-const { findAllDrafsForShop, findAllPublicForShop, onPublicProductForShop, onDraftProductForShop } = require("../model/repositories/product.repo");
+const { findAllDrafsForShop, findAllPublicForShop, onPublicProductForShop, onDraftProductForShop, searchProduct, findAllProducts, findProduct, modifyProduct } = require("../model/repositories/product.repo");
 const { NO_CONTENT } = require("../core/reasonPhrases");
+const { removeAttributes, removeNesstedAttributesObject, removeNestedAttributesObjectV3 } = require("../utils");
+const { createdInventories } = require("../model/repositories/inventories.repo");
 
 /**
  *
@@ -12,26 +14,11 @@ const { NO_CONTENT } = require("../core/reasonPhrases");
  * @class ProductFactory
  */
 class ProductFactory {
-    // Desgin V1 
-
-    // async createProduct(type, payload) {
-    //     console.log({
-    //         type: type,
-    //         payload: payload
-    //     });
-    //     switch (type) {
-    //         case 'Electronics': return await new Electronic(payload).createProduct();
-    //         case 'Clothing': return await new Clothing(payload).createProduct();
-    //         case 'Furniture': return await new Furntiture(payload).createProduct();
-    //         default:
-    //             throw new BadRequestError('! type Product not found !');
-    //     }
-    // }
-
     static factoryProduct = {};
     static resgiterProduct(key, value) {
         return ProductFactory.factoryProduct[key] = value;
     };
+
     async createProduct(type, payload) {
         const Product = ProductFactory.factoryProduct[type];
         if (!Product) return BadRequestError(`
@@ -39,6 +26,16 @@ class ProductFactory {
             `);
         return await new Product(payload).createProduct();
     }
+
+    //Update 
+    async modifyProduct({ type, product_id, payload }) {
+        const Product = ProductFactory.factoryProduct[type];
+        if (!Product) return BadRequestError(`
+            ! notFound  ${type} :: Product
+            `);
+        return await new Product(payload).modifyProduct(product_id);
+    }
+
     // Patch
     async onPublicProductForShop({
         product_shop, product_id
@@ -75,8 +72,24 @@ class ProductFactory {
         return await findAllPublicForShop({ query, limit, skip });
     }
 
+    async searchAllProduct(keyword) {
+        return await searchProduct(keyword);
+    }
 
+    async findAllProduct({ limit = 50, sort = 'ctime', page = 1 }) {
+        const skip = (page - 1) * limit;
+        const query = {
+            isPublish: true
+        };
+        const select = ['product_name', 'product_price', 'product_thumb']
+        return await findAllProducts({ query, sort, limit, skip, select });
+    }
 
+    async findProduct(product_id) {
+        const product = await findProduct({ product_id: product_id, unSelect: ["__v"] });
+        if (!product) new NOT_FOUND('Product notfound !!');
+        return product;
+    }
 
 
 
@@ -109,10 +122,22 @@ class Product {
     }
 
     async createProduct(idProduct) {
-        return await product.create({
+        const newProduct = await product.create({
             ...this,
             _id: idProduct
         });
+        if (newProduct) {
+            await createdInventories({
+                inven_shopId: this.product_shop,
+                inven_prodcutId: idProduct,
+                inven_stock: this.product_quantity
+            });
+            return newProduct;
+        }
+    }
+
+    async updateProduct(idProduct) {
+        return await modifyProduct({ productId: idProduct, payload: this, model: product });
     }
 }
 
@@ -124,6 +149,13 @@ class Clothing extends Product {
         });
         if (!clothing1) throw new BadRequestError('Clothing not created!');
         const newProduct = await super.createProduct(clothing1._id);
+        return newProduct;
+    }
+
+    async modifyProduct(idProduct) {
+        const updateAtribute = await modifyProduct({ productId: idProduct, payload: this.product_attributes, model: clothing });
+        if (!updateAtribute) throw new BadRequestError('Clothing not update!');
+        const newProduct = await super.updateProduct(updateAtribute._id);
         return newProduct;
     }
 }
@@ -139,6 +171,19 @@ class Electronic extends Product {
         const newProduct = await super.createProduct(electronic1._id);
         return newProduct;
     }
+
+    async modifyProduct(idProduct) {
+        const payload = removeNestedAttributesObjectV3(this.product_attributes);
+        const updateAtribute = await modifyProduct({
+            productId: idProduct, payload, model: electronic
+        });
+        if (!updateAtribute) throw new BadRequestError('electronic not update!');
+        const newProduct = await super.updateProduct(updateAtribute._id);
+        newProduct.product_attributes = updateAtribute
+        return newProduct;
+    }
+
+
 }
 
 class Furntiture extends Product {

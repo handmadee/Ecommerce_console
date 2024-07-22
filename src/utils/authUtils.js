@@ -86,6 +86,9 @@ const authencation = asnycHandler(async (req, res, next) => {
         console.log(error)
     }
 
+    // select data  
+
+
 
 
 

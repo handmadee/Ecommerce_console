@@ -52,14 +52,21 @@ const productSchema = new Schema({
 }, { timestamps: true, collection: COLLECTION_NAME });
 
 // đánh index cho product full text searcH
-
+productSchema.index({ product_name: "text", product_description: "text" });
 
 // 1 midđleware: trước khi save 
 productSchema.pre('save', function (next) {
     this.product_slug = slugify(this.product_name, { lower: true });
     next();
 })
-
+//
+productSchema.pre('findOneAndUpdate', function (next) {
+    const update = this.getUpdate();
+    if (update.product_name) {
+        update.product_slug = slugify(update.product_name, { lower: true });
+    }
+    next();
+});
 
 const clothingSchema = new Schema({
     brand: { type: String, required: true },
