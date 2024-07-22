@@ -35,3 +35,5 @@ The E-Commerce System is designed to provide a seamless online shopping experien
 - **Authentication**: JWT (JSON Web Tokens)
 - **Payment Gateway**: Stripe
 - **Version Control**: Git, GitHub
+
+Note

@@ -1,344 +1,313 @@
 module.exports = {
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.2.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.2.1
      *
-     * This interim response indicates that everything so far is OK and that the client should continue with the request or ignore it if it is already finished.
+     * Phản hồi tạm thời này cho biết mọi thứ cho đến thời điểm này đều OK và client nên tiếp tục với yêu cầu hoặc bỏ qua nếu yêu cầu đã hoàn tất.
      */
     CONTINUE: 100,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.2.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.2.2
      *
-     * This code is sent in response to an Upgrade request header by the client, and indicates the protocol the server is switching too.
+     * Mã này được gửi để đáp lại tiêu đề yêu cầu Upgrade của client, và chỉ ra giao thức mà server đang chuyển đổi sang.
      */
     SWITCHING_PROTOCOLS: 101,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc2518#section-10.1
      *
-     * This code indicates that the server has received and is processing the request, but no response is available yet.
+     * Mã này chỉ ra rằng server đã nhận và đang xử lý yêu cầu, nhưng chưa có phản hồi nào có sẵn.
      */
     PROCESSING: 102,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.3.1
      *
-     * The request has succeeded. The meaning of a success varies depending on the HTTP method:
-     * GET: The resource has been fetched and is transmitted in the message body.
-     * HEAD: The entity headers are in the message body.
-     * POST: The resource describing the result of the action is transmitted in the message body.
-     * TRACE: The message body contains the request message as received by the server
+     * Yêu cầu đã thành công. Ý nghĩa của một thành công thay đổi tùy thuộc vào phương thức HTTP:
+     * GET: Tài nguyên đã được lấy và được truyền trong thân thông điệp.
+     * HEAD: Các tiêu đề thực thể có trong thân thông điệp.
+     * POST: Tài nguyên mô tả kết quả của hành động được truyền trong thân thông điệp.
+     * TRACE: Thân thông điệp chứa thông điệp yêu cầu như nhận bởi server.
      */
     OK: 200,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.3.2
      *
-     * The request has succeeded and a new resource has been created as a result of it. This is typically the response sent after a PUT request.
+     * Yêu cầu đã thành công và một tài nguyên mới đã được tạo ra như kết quả của nó. Đây thường là phản hồi được gửi sau một yêu cầu PUT.
      */
     CREATED: 201,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.3
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.3.3
      *
-     * The request has been received but not yet acted upon. It is non-committal, meaning that there is no way in HTTP to later send an asynchronous response indicating the outcome of processing the request. It is intended for cases where another process or server handles the request, or for batch processing.
+     * Yêu cầu đã được nhận nhưng chưa được hành động. Nó không cam kết, có nghĩa là không có cách nào trong HTTP để sau đó gửi một phản hồi không đồng bộ chỉ ra kết quả của việc xử lý yêu cầu. Nó nhằm cho các trường hợp nơi quá trình hoặc server khác xử lý yêu cầu, hoặc cho xử lý hàng loạt.
      */
     ACCEPTED: 202,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.4
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.3.4
      *
-     * This response code means returned meta-information set is not exact set as available from the origin server, but collected from a local or a third party copy. Except this condition, 200 OK response should be preferred instead of this response.
+     * Mã phản hồi này có nghĩa là tập hợp thông tin meta trả về không phải là tập hợp chính xác như có sẵn từ server gốc, mà được thu thập từ bản sao cục bộ hoặc bên thứ ba. Trừ trường hợp này, phản hồi 200 OK nên được ưa thích thay vì phản hồi này.
      */
     NON_AUTHORITATIVE_INFORMATION: 203,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.5
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.3.5
      *
-     * There is no content to send for this request, but the headers may be useful. The user-agent may update its cached headers for this resource with the new ones.
+     * Không có nội dung nào để gửi cho yêu cầu này, nhưng các tiêu đề có thể hữu ích. User-agent có thể cập nhật các tiêu đề được lưu trong bộ đệm cho tài nguyên này với các tiêu đề mới.
      */
     NO_CONTENT: 204,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.6
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.3.6
      *
-     * This response code is sent after accomplishing request to tell user agent reset document view which sent this request.
+     * Mã phản hồi này được gửi sau khi hoàn thành yêu cầu để yêu cầu user agent đặt lại chế độ xem tài liệu đã gửi yêu cầu này.
      */
     RESET_CONTENT: 205,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7233#section-4.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7233#section-4.1
      *
-     * This response code is used because of range header sent by the client to separate download into multiple streams.
+     * Mã phản hồi này được sử dụng vì tiêu đề phạm vi được gửi bởi client để tách tải xuống thành nhiều luồng.
      */
     PARTIAL_CONTENT: 206,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc2518#section-10.2
      *
-     * A Multi-Status response conveys information about multiple resources in situations where multiple status codes might be appropriate.
+     * Phản hồi Multi-Status truyền tải thông tin về nhiều tài nguyên trong các tình huống mà nhiều mã trạng thái có thể phù hợp.
      */
     MULTI_STATUS: 207,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.4.1
      *
-     * The request has more than one possible responses. User-agent or user should choose one of them. There is no standardized way to choose one of the responses.
+     * Yêu cầu có nhiều hơn một phản hồi khả dĩ. User-agent hoặc người dùng nên chọn một trong số chúng. Không có cách chuẩn hóa nào để chọn một trong các phản hồi.
      */
     MULTIPLE_CHOICES: 300,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.4.2
      *
-     * This response code means that URI of requested resource has been changed. Probably, new URI would be given in the response.
+     * Mã phản hồi này có nghĩa là URI của tài nguyên được yêu cầu đã bị thay đổi. Có thể, URI mới sẽ được cung cấp trong phản hồi.
      */
     MOVED_PERMANENTLY: 301,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.3
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.4.3
      *
-     * This response code means that URI of requested resource has been changed temporarily. New changes in the URI might be made in the future. Therefore, this same URI should be used by the client in future requests.
+     * Mã phản hồi này có nghĩa là URI của tài nguyên được yêu cầu đã bị thay đổi tạm thời. Các thay đổi mới trong URI có thể được thực hiện trong tương lai. Do đó, URI này nên được sử dụng bởi client trong các yêu cầu tương lai.
      */
     MOVED_TEMPORARILY: 302,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.4
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.4.4
      *
-     * Server sent this response to directing client to get requested resource to another URI with an GET request.
+     * Server gửi phản hồi này để chỉ dẫn client nhận tài nguyên được yêu cầu tại một URI khác với một yêu cầu GET.
      */
     SEE_OTHER: 303,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7232#section-4.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7232#section-4.1
      *
-     * This is used for caching purposes. It is telling to client that response has not been modified. So, client can continue to use same cached version of response.
+     * Điều này được sử dụng cho mục đích lưu trữ. Nó cho client biết rằng phản hồi không bị thay đổi. Vì vậy, client có thể tiếp tục sử dụng phiên bản được lưu trong bộ đệm của phản hồi.
      */
     NOT_MODIFIED: 304,
     /**
      * @deprecated
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.6
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.4.6
      *
-     * Was defined in a previous version of the HTTP specification to indicate that a requested response must be accessed by a proxy. It has been deprecated due to security concerns regarding in-band configuration of a proxy.
+     * Được định nghĩa trong một phiên bản trước của đặc tả HTTP để chỉ ra rằng một phản hồi yêu cầu phải được truy cập bởi một proxy. Nó đã bị loại bỏ do lo ngại về bảo mật liên quan đến cấu hình proxy trong dải.
      */
     USE_PROXY: 305,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.7
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.4.7
      *
-     * Server sent this response to directing client to get requested resource to another URI with same method that used prior request. This has the same semantic than the 302 Found HTTP response code, with the exception that the user agent must not change the HTTP method used: if a POST was used in the first request, a POST must be used in the second request.
+     * Server gửi phản hồi này để chỉ dẫn client nhận tài nguyên được yêu cầu tại một URI khác với cùng phương thức được sử dụng trong yêu cầu trước. Điều này có cùng ngữ nghĩa với mã phản hồi HTTP 302 Found, ngoại trừ việc user agent không được thay đổi phương thức HTTP được sử dụng: nếu một POST đã được sử dụng trong yêu cầu đầu tiên, một POST phải được sử dụng trong yêu cầu thứ hai.
      */
     TEMPORARY_REDIRECT: 307,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7538#section-3
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7538#section-3
      *
-     * This means that the resource is now permanently located at another URI, specified by the Location: HTTP Response header. This has the same semantics as the 301 Moved Permanently HTTP response code, with the exception that the user agent must not change the HTTP method used: if a POST was used in the first request, a POST must be used in the second request.
+     * Điều này có nghĩa là tài nguyên hiện đã được định vị vĩnh viễn tại một URI khác, được chỉ định bởi tiêu đề Location: HTTP Response. Điều này có cùng ngữ nghĩa như mã phản hồi HTTP 301 Moved Permanently, ngoại trừ việc user agent không được thay đổi phương thức HTTP được sử dụng: nếu một POST đã được sử dụng trong yêu cầu đầu tiên, một POST phải được sử dụng trong yêu cầu thứ hai.
      */
     PERMANENT_REDIRECT: 308,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.1
      *
-     * This response means that server could not understand the request due to invalid syntax.
+     * Phản hồi này có nghĩa là server không thể hiểu yêu cầu do cú pháp không hợp lệ.
      */
     BAD_REQUEST: 400,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7235#section-3.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7235#section-3.1
      *
-     * Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response.
+     * Mặc dù tiêu chuẩn HTTP chỉ định "unauthorized" (không được phép), ngữ nghĩa của phản hồi này là "unauthenticated" (chưa xác thực). Nghĩa là, client phải xác thực bản thân để nhận được phản hồi được yêu cầu.
      */
     UNAUTHORIZED: 401,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.2
      *
-     * This response code is reserved for future use. Initial aim for creating this code was using it for digital payment systems however this is not used currently.
+     * Mã phản hồi này được dự trữ cho việc sử dụng trong tương lai. Mục đích ban đầu của việc tạo ra mã này là sử dụng cho các hệ thống thanh toán kỹ thuật số, tuy nhiên hiện tại nó không được sử dụng.
      */
     PAYMENT_REQUIRED: 402,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.3
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.3
      *
-     * The client does not have access rights to the content, i.e. they are unauthorized, so server is rejecting to give proper response. Unlike 401, the client's identity is known to the server.
+     * Client không có quyền truy cập vào nội dung; tức là, nó không được phép, do tài khoản không đủ hoặc bị từ chối.
      */
     FORBIDDEN: 403,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.4
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.4
      *
-     * The server can not find requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 to hide the existence of a resource from an unauthorized client. This response code is probably the most famous one due to its frequent occurence on the web.
+     * Server không thể tìm thấy tài nguyên được yêu cầu. Điều này có thể là do URL không chính xác hoặc tài nguyên không tồn tại. Không có sự khác biệt nào giữa mã trạng thái này và mã 410 Gone.
      */
     NOT_FOUND: 404,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.5
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.5
      *
-     * The request method is known by the server but has been disabled and cannot be used. For example, an API may forbid DELETE-ing a resource. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.
+     * Phương thức yêu cầu không được hỗ trợ bởi server và không thể được xử lý. Các phương thức được biết đến bởi server là GET và HEAD nhưng không có yêu cầu nào cho POST hoặc phương thức nào khác.
      */
     METHOD_NOT_ALLOWED: 405,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.6
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.6
      *
-     * This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content following the criteria given by the user agent.
+     * Phản hồi này được gửi khi tiêu đề của yêu cầu không có khả năng thỏa mãn server.
      */
     NOT_ACCEPTABLE: 406,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7235#section-3.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7235#section-3.2
      *
-     * This is similar to 401 but authentication is needed to be done by a proxy.
+     * Đây là mã phản hồi được sử dụng khi client phải xác thực bản thân để truy cập tài nguyên. Các client như trình duyệt có thể sử dụng thông tin này để tự động điền thông tin xác thực.
      */
     PROXY_AUTHENTICATION_REQUIRED: 407,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.7
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.7
      *
-     * This response is sent on an idle connection by some servers, even without any previous request by the client. It means that the server would like to shut down this unused connection. This response is used much more since some browsers, like Chrome, Firefox 27+, or IE9, use HTTP pre-connection mechanisms to speed up surfing. Also note that some servers merely shut down the connection without sending this message.
+     * Mã phản hồi này được gửi bởi server khi nó không nhận được phản hồi kịp thời từ phía client. Điều này có thể xảy ra khi kết nối mạng quá chậm hoặc mất kết nối.
      */
     REQUEST_TIMEOUT: 408,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.8
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.8
      *
-     * This response is sent when a request conflicts with the current state of the server.
+     * Mã phản hồi này có nghĩa là xung đột xảy ra trên server khi xử lý yêu cầu. Điều này thường xảy ra khi các yêu cầu đồng thời cố gắng thay đổi tài nguyên cùng một lúc.
      */
     CONFLICT: 409,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.9
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.9
      *
-     * This response would be sent when the requested content has been permenantly deleted from server, with no forwarding address. Clients are expected to remove their caches and links to the resource. The HTTP specification intends this status code to be used for "limited-time, promotional services". APIs should not feel compelled to indicate resources that have been deleted with this status code.
+     * Mã phản hồi này có nghĩa là tài nguyên được yêu cầu không còn tồn tại trên server và không có địa chỉ chuyển tiếp nào được cung cấp. Điều này có thể là do tài nguyên đã bị xóa vĩnh viễn.
      */
     GONE: 410,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.10
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.10
      *
-     * The server rejected the request because the Content-Length header field is not defined and the server requires it.
+     * Mã phản hồi này được gửi khi server yêu cầu một điều kiện tiên quyết không thỏa mãn trong yêu cầu của client.
      */
     LENGTH_REQUIRED: 411,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7232#section-4.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7232#section-4.2
      *
-     * The client has indicated preconditions in its headers which the server does not meet.
+     * Mã phản hồi này cho biết điều kiện tiên quyết của yêu cầu không được thỏa mãn. Điều này có thể xảy ra khi điều kiện `If-Match` hoặc `If-Unmodified-Since` không khớp.
      */
     PRECONDITION_FAILED: 412,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.11
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.11
      *
-     * Request entity is larger than limits defined by server; the server might close the connection or return an Retry-After header field.
+     * Mã phản hồi này được gửi khi yêu cầu của client quá lớn để server có thể xử lý.
      */
-    REQUEST_TOO_LONG: 413,
+    PAYLOAD_TOO_LARGE: 413,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.12
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.12
      *
-     * The URI requested by the client is longer than the server is willing to interpret.
+     * Mã phản hồi này được gửi khi URI được cung cấp trong yêu cầu của client quá dài để server có thể xử lý.
      */
-    REQUEST_URI_TOO_LONG: 414,
+    URI_TOO_LONG: 414,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.13
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.13
      *
-     * The media format of the requested data is not supported by the server, so the server is rejecting the request.
+     * Mã phản hồi này được gửi khi server không hỗ trợ định dạng truyền dữ liệu của yêu cầu.
      */
     UNSUPPORTED_MEDIA_TYPE: 415,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7233#section-4.4
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7233#section-4.4
      *
-     * The range specified by the Range header field in the request can't be fulfilled; it's possible that the range is outside the size of the target URI's data.
+     * Mã phản hồi này được gửi khi phạm vi của yêu cầu không thỏa mãn yêu cầu của server. Điều này có thể xảy ra khi phạm vi không nằm trong giới hạn của tài nguyên được yêu cầu.
      */
-    REQUESTED_RANGE_NOT_SATISFIABLE: 416,
+    RANGE_NOT_SATISFIABLE: 416,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.14
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.14
      *
-     * This response code means the expectation indicated by the Expect request header field can't be met by the server.
+     * Mã phản hồi này được gửi khi điều kiện tiên quyết của yêu cầu không được thỏa mãn. Điều này có thể xảy ra khi điều kiện `If-Range` không khớp.
      */
     EXPECTATION_FAILED: 417,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2324#section-2.3.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc4918#section-11.2
      *
-     * Any attempt to brew coffee with a teapot should result in the error code "418 I'm a teapot". The resulting entity body MAY be short and stout.
-     */
-    IM_A_TEAPOT: 418,
-    /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.6
-     *
-     * The 507 (Insufficient Storage) status code means the method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request. This condition is considered to be temporary. If the request which received this status code was the result of a user action, the request MUST NOT be repeated until it is requested by a separate user action.
-     */
-    INSUFFICIENT_SPACE_ON_RESOURCE: 419,
-    /**
-     * @deprecated
-     * Official Documentation @ https://tools.ietf.org/rfcdiff?difftype=--hwdiff&url2=draft-ietf-webdav-protocol-06.txt
-     *
-     * A deprecated response used by the Spring Framework when a method has failed.
-     */
-    METHOD_FAILURE: 420,
-    /**
-     * Official Documentation @ https://datatracker.ietf.org/doc/html/rfc7540#section-9.1.2
-     *
-     * Defined in the specification of HTTP/2 to indicate that a server is not able to produce a response for the combination of scheme and authority that are included in the request URI.
-     */
-    MISDIRECTED_REQUEST: 421,
-    /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.3
-     *
-     * The request was well-formed but was unable to be followed due to semantic errors.
-     */
-    UNPROCESSABLE_ENTITY: 422,
-    /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.4
-     *
-     * The resource that is being accessed is locked.
+     * Mã phản hồi này cho biết rằng server không thể xử lý yêu cầu vì nó bị khóa.
      */
     LOCKED: 423,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.5
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc4918#section-11.5
      *
-     * The request failed due to failure of a previous request.
+     * Mã phản hồi này cho biết rằng server không thể thực hiện yêu cầu do điều kiện thất bại.
      */
     FAILED_DEPENDENCY: 424,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc6585#section-3
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc6585#section-3
      *
-     * The origin server requires the request to be conditional. Intended to prevent the 'lost update' problem, where a client GETs a resource's state, modifies it, and PUTs it back to the server, when meanwhile a third party has modified the state on the server, leading to a conflict.
+     * Mã phản hồi này cho biết rằng yêu cầu không tuân thủ chính sách server. Điều này có thể xảy ra khi yêu cầu vượt quá giới hạn tỷ lệ.
+     */
+    TOO_EARLY: 425,
+    /**
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.5.15
+     *
+     * Mã phản hồi này cho biết rằng yêu cầu không đáp ứng tiêu đề bắt buộc `Upgrade`.
+     */
+    UPGRADE_REQUIRED: 426,
+    /**
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc6585#section-4
+     *
+     * Mã phản hồi này được gửi khi yêu cầu của client bị từ chối vì lý do giới hạn tỷ lệ.
      */
     PRECONDITION_REQUIRED: 428,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc6585#section-4
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc6585#section-5
      *
-     * The user has sent too many requests in a given amount of time ("rate limiting").
+     * Mã phản hồi này được gửi khi client gửi quá nhiều yêu cầu trong một khoảng thời gian ngắn.
      */
     TOO_MANY_REQUESTS: 429,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc6585#section-5
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc6585#section-6
      *
-     * The server is unwilling to process the request because its header fields are too large. The request MAY be resubmitted after reducing the size of the request header fields.
+     * Mã phản hồi này được gửi khi server yêu cầu client thực hiện xác thực trước khi tiếp tục.
      */
     REQUEST_HEADER_FIELDS_TOO_LARGE: 431,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7725
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7725#section-3
      *
-     * The user-agent requested a resource that cannot legally be provided, such as a web page censored by a government.
+     * Mã phản hồi này được gửi khi server từ chối yêu cầu vì lý do pháp lý. Điều này có thể xảy ra khi tài nguyên bị cấm hoặc không hợp lệ.
      */
     UNAVAILABLE_FOR_LEGAL_REASONS: 451,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.1
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.6.1
      *
-     * The server encountered an unexpected condition that prevented it from fulfilling the request.
+     * Mã phản hồi này cho biết rằng server gặp lỗi nội bộ và không thể hoàn thành yêu cầu.
      */
     INTERNAL_SERVER_ERROR: 500,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.2
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.6.2
      *
-     * The request method is not supported by the server and cannot be handled. The only methods that servers are required to support (and therefore that must not return this code) are GET and HEAD.
+     * Mã phản hồi này cho biết rằng server không có khả năng thực hiện yêu cầu hiện tại.
      */
     NOT_IMPLEMENTED: 501,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.3
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.6.3
      *
-     * This error response means that the server, while working as a gateway to get a response needed to handle the request, got an invalid response.
+     * Mã phản hồi này cho biết rằng server gặp lỗi từ phía gateway hoặc proxy server.
      */
     BAD_GATEWAY: 502,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.4
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.6.4
      *
-     * The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Note that together with this response, a user-friendly page explaining the problem should be sent. This responses should be used for temporary conditions and the Retry-After: HTTP header should, if possible, contain the estimated time before the recovery of the service. The webmaster must also take care about the caching-related headers that are sent along with this response, as these temporary condition responses should usually not be cached.
+     * Mã phản hồi này cho biết rằng server tạm thời không thể xử lý yêu cầu. Điều này có thể xảy ra khi server đang được bảo trì hoặc gặp sự cố quá tải.
      */
     SERVICE_UNAVAILABLE: 503,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.5
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.6.5
      *
-     * This error response is given when the server is acting as a gateway and cannot get a response in time.
+     * Mã phản hồi này cho biết rằng server gặp sự cố từ phía upstream hoặc proxy server. Điều này có thể xảy ra khi có lỗi kết nối hoặc lỗi DNS.
      */
     GATEWAY_TIMEOUT: 504,
     /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.6
+     * Tài liệu chính thức @ https://tools.ietf.org/html/rfc7231#section-6.6.6
      *
-     * The HTTP version used in the request is not supported by the server.
+     * Mã phản hồi này cho biết rằng server không hỗ trợ phiên bản HTTP được sử dụng trong yêu cầu.
      */
     HTTP_VERSION_NOT_SUPPORTED: 505,
-    /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.6
-     *
-     * The server has an internal configuration error: the chosen variant resource is configured to engage in transparent content negotiation itself, and is therefore not a proper end point in the negotiation process.
-     */
-    INSUFFICIENT_STORAGE: 507,
-    /**
-     * Official Documentation @ https://tools.ietf.org/html/rfc6585#section-6
-     *
-     * The 511 status code indicates that the client needs to authenticate to gain network access.
-     */
-    NETWORK_AUTHENTICATION_REQUIRED: 511
-}
+};

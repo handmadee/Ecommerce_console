@@ -66,7 +66,7 @@ const authencation = asnycHandler(async (req, res, next) => {
     if (!userID) throw new UnauthorizedError('Invalid Request 1');
     // @find 
     const keyStore = await KeyTokenService.findUserID(userID);
-    if (!keyStore) throw new NotFoundError('keyStore notfound');
+    if (!keyStore) throw new NotFoundError('userID notfound');
     // Verifire token 
     const refreshToken = req.headers[HEADER.REFRESHTOKEN];
     if (!refreshToken) throw new UnauthorizedError('Invalid Request rf not found')
@@ -85,6 +85,9 @@ const authencation = asnycHandler(async (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
+
+    // select data  
+
 
 
 
