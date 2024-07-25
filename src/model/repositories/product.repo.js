@@ -59,11 +59,7 @@ const onDraftProductForShop = async ({ product_shop, product_id }) => {
     return modifiedCount;
 }
 
-
-
-
 // Query
-
 /**
  *
  *
@@ -120,10 +116,6 @@ async function findAllProductForShop(query, limit, skip) {
         .lean()
         .exec()
 }
-
-
-
-
 
 
 module.exports = { findAllPublicForShop, findAllDrafsForShop, onPublicProductForShop, onDraftProductForShop, searchProduct, findAllProducts, findProduct, modifyProduct }

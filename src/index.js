@@ -32,7 +32,6 @@ app.use((req, res, next) => {
     error.status = 404;
     next(error);
 });
-
 // Xử lý lỗi chung
 app.use((error, req, res, next) => {
     const statusCode = error.statusCode || 500;
