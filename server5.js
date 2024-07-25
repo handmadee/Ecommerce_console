@@ -1,5 +1,5 @@
+const app = require("./src/index");
 const cluster = require('cluster');
-const { log } = require('console');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
 
@@ -15,5 +15,5 @@ if (cluster.isPrimary) {
 } else {
     process.title = `node_${cluster.worker.id}`
     // lắng nghe y/c 
-    require('./server')
+    require('./server4')
 }
