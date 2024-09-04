@@ -75,7 +75,8 @@ const authencation = asnycHandler(async (req, res, next) => {
         if (!decode) throw new UnauthorizedError('Invalid Request');
         console.log({
             message: "DECODE JWT",
-            decode: `decode:: ${decode}`
+            decode: `decode:: ${decode}`,
+            decode
         })
         if (userID !== decode.userID) throw new UnauthorizedError('Invalid Request');
         req.keyStore = keyStore;

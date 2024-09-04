@@ -57,8 +57,6 @@ class cartControler {
         }).send(res)
     }
 
-
 }
-
 
 module.exports = new cartControler();
