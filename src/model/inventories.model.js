@@ -16,7 +16,9 @@ const InventorieSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Shop'
     },
-    inven_reservations: { type: Array, default: [] }
+    inven_reservations: { type: Array, default: [] } // thong tin cac nguoi dung da dat 
+    // de kiem ke so luong trong he thong 
+
 }, { timestamps: true, collection: COLLECTION_NAME });
 
 

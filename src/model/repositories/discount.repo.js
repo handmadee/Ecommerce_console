@@ -1,10 +1,8 @@
 'use strict'
 
 
-const { Types } = require("mongoose");
 const { convertObjectId, unSelectData, selectDataV2, removeNesstedAttributesObject, unSelectDataV2 } = require("../../utils");
 const discountModel = require("../discount.model");
-const { query } = require("express");
 
 
 const createDiscount = async (payload) => await discountModel.create(payload);

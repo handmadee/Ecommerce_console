@@ -2,7 +2,7 @@
 
 const { Types } = require("mongoose")
 const { product } = require("../product.model")
-const { selectDataV2, unSelectDataV2, unSelectData, removeNesstedAttributesObject, removeNestedAttributesObjectV3 } = require("../../utils")
+const { selectDataV2, unSelectDataV2, unSelectData, removeNesstedAttributesObject, removeNestedAttributesObjectV3, convertObjectId } = require("../../utils")
 
 /** 
  * @type {*}
@@ -97,7 +97,6 @@ const findAllProducts = async ({ query, sort, limit, skip, select }) => {
 }
 
 const findProduct = async ({ product_id, unSelect }) => {
-    console.log(unSelect)
     return await product.findById(product_id).select(unSelectDataV2(unSelect)).lean()
 }
 
@@ -117,8 +116,29 @@ async function findAllProductForShop(query, limit, skip) {
         .exec()
 }
 
+async function listProducts(listItem = [], shopId) {
+    console.log(listItem, shopId)
+    return Promise.all(
+        listItem.map(async (item) => {
+            console.log(item)
+            const newProduct = await product.findOne({
+                _id: convertObjectId(item.productId),
+                product_shop: convertObjectId(shopId)
+            }).lean();
+            console.log(newProduct)
+            if (newProduct) {
+                return {
+                    productId: newProduct._id,
+                    quantity: item.quantity,
+                    price: newProduct.product_price
+                }
+            }
+        })
+    )
 
-module.exports = { findAllPublicForShop, findAllDrafsForShop, onPublicProductForShop, onDraftProductForShop, searchProduct, findAllProducts, findProduct, modifyProduct }
+}
+
+module.exports = { findAllPublicForShop, findAllDrafsForShop, onPublicProductForShop, onDraftProductForShop, searchProduct, findAllProducts, findProduct, modifyProduct, listProducts }
 
 
 
